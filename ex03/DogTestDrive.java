@@ -1,3 +1,36 @@
+class DogPack {
+	private Dog[] dogs;
+
+	public void makeArray(int s) {
+		//Takes an integer size for an array and makes a Dog object array of that size
+		dogs = new Dog[s];
+	}
+
+	public void addDog(int ind, Dog dog) {
+		//ind: index of array to add the Dog object to
+		//dog: Dog object to be added to the array
+		// Takes an index and Dog object and replaces whatever is at that index with the Dog object
+		if (ind >= dogs.length || dogs.length < 1) {
+			System.out.println("Index outside declared range or array not initialized!");
+		}
+		else {
+			dogs[ind] = dog;
+		}
+	}
+	public Dog biggestDog(){
+		//Returns the biggest dog in the DogPack object
+		Dog biggerDog = new Dog();
+		biggerDog.setSize(0);
+		for (int i = 0; i<dogs.length; i = i + 1){
+			if (dogs[i].isBigger(biggerDog)){
+				biggerDog = dogs[i];
+			}
+		}
+		return biggerDog;
+	}
+}
+
+
 class Dog {
 
 	private int size;
@@ -5,18 +38,23 @@ class Dog {
 	String name;
 
 	void bark() {
+		//Makes system print string emulating a bark
 		System.out.println("Ruff! Ruff!");
 	}
 
 	public int getSize() {
+		//Returns size of 'this' Dog object
 		return size;
 	}
 
 	public void setSize(int s) {
+		//Sets size of 'this' Dog object
 		size = s;
 	}
 
 	public boolean isBigger(Dog d){
+		//d: Dog object
+		//Compares 'this' Dog with parameter Dog object and returns true if 'this' is bigger or false otherwise
 		if (d.getSize() > size) {
 			return false;
 		}
@@ -29,12 +67,29 @@ class Dog {
 class Cat extends Dog {
 	
 	void bark() {
+		//Makes the system print a cat customized string
 		System.out.println("I am a cat");
 	}	
 }
 
 class DogTestDrive {
 	public static void main (String[] args) {
+		//Tests the relevant code within Dog and DogPack
+		int[] sizes;
+		sizes = new int[3];
+		for (int i = 0; i<sizes.length; i = i + 1){
+			sizes[i] = i + 2;
+		}
+
+		DogPack dogpack = new DogPack();
+		dogpack.makeArray(sizes.length);
+		for (int i = 0; i<sizes.length; i = i + 1){
+			Dog newDog = new Dog();
+			newDog.setSize(sizes[i]);
+			dogpack.addDog(i, newDog);
+		}
+		System.out.println(dogpack.biggestDog().getSize());
+
 		Dog[] pets;
 		pets = new Dog[3];
 		for (int i = 0; i<pets.length; i = i + 1){
